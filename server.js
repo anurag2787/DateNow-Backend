@@ -27,3 +27,7 @@ io.on("connection", socket =>{
         console.log("A user disconnected");
     });
 })
+
+app.get("/", (req, res) => {
+    res.send("🚀 Server is up and running! Are you a developer? 😏 I bet you didn’t even check before panicking. Relax, it's all good! 🎉😂");
+  });
