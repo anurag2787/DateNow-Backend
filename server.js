@@ -3,13 +3,15 @@ const http=require('http');
 const app=new express();
 const server=http.createServer(app);
 const cors = require("cors");
+const dotenv = require("dotenv")
 
 app.use(cors());
+dotenv.config();
 
 const { Server } = require("socket.io");
 const io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173", // Allow React frontend
+      origin: process.env.FRONTEND_URL, 
       methods: ["GET", "POST"],
     },
   });
