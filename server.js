@@ -4,9 +4,15 @@ const app=new express();
 const server=http.createServer(app);
 const cors = require("cors");
 const dotenv = require("dotenv")
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 app.use(cors());
 dotenv.config();
+app.use(express.json());
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+const router = express.Router();
 
 const { Server } = require("socket.io");
 const io = new Server(server, {
@@ -31,3 +37,11 @@ io.on("connection", socket =>{
 app.get("/", (req, res) => {
     res.send("🚀 Server is up and running! Are you a developer? 😏 I bet you didn’t even check before panicking. Relax, it's all good! 🎉😂");
   });
+
+  const talkRoutes = require("./routes/talkroutes");
+  app.use("/api", talkRoutes);
+
+  mongoose
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((err) => console.error('Failed to connect to MongoDB', err));
