@@ -4,7 +4,7 @@ const talkSchema=new Schema({
         role: { type: String, required: true }, 
         userid: {type : String, required: true },
         text: { type: String, required: true },
-        displayName: { type: String, required: true },
+        displayName: String,
         createdAt: { type: Date, default: Date.now },
         },
 {
