@@ -12,6 +12,7 @@ router.get("/talkmsg", async (req, res) => {
   }
 });
 
+
 router.post("/talkmsg", async (req, res) => {
   const { role, text, userid, displayName } = req.body;
   const talk = new Talk({ role, text, userid, displayName });
