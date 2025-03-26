@@ -7,7 +7,12 @@ const dotenv = require("dotenv")
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-app.use(cors());
+app.use(cors({
+  origin: '*', // Allow requests from any origin
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true // Note: credentials cannot be used with wildcard origin
+}));
 dotenv.config();
 app.use(express.json());
 app.use(bodyParser.json());
