@@ -15,13 +15,25 @@ router.get("/talkmsg", async (req, res) => {
 
 router.post("/talkmsg", async (req, res) => {
   const { role, text, userid, displayName } = req.body;
-  const talk = new Talk({ role, text, userid, displayName });
+  const talk = new Talk({ 
+    role, 
+    text, 
+    userid, 
+    displayName: displayName || 'Anonymous' 
+  });
 
   try {
-    await talk.save();
-    res.status(201).json({ message: "Message Saved successfully!" });
+    const savedTalk = await talk.save();
+    res.status(201).json({ 
+      message: "Message saved successfully!", 
+      data: savedTalk 
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error saving message:", error);
+    res.status(500).json({ 
+      error: "Unable to save message", 
+      details: error.message 
+    });
   }
 });
 
