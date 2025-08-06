@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
+const dotenv = require("dotenv")
 
 router.post('/', async (req, res) => {
     const { email, text, displayName } = req.body;
@@ -13,17 +14,17 @@ router.post('/', async (req, res) => {
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: "gamingcontact374@gmail.com",
-                pass: "sgsjprtfxszrkixx", // Use an App Password, NOT your normal password
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
             },
         });
 
         const info = await transporter.sendMail({
-            from: '"DateNow" <gamingcontact374@gmail.com>',
+            from: '"DateNow" <'+ process.env.EMAIL_FROM +'>',
             to: email,
-            bcc: "anurag2787yadav@gmail.com",
+            bcc: process.env.EMAIL_BCC,
             subject: "Thank You for Contacting DateNow!",
-            text: `Hello ${displayName},
+            html: `Hello ${displayName},
 
 Thank you for reaching out to us at DateNow! We have received your message and appreciate you taking the time to connect with us.
 
