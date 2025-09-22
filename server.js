@@ -48,7 +48,9 @@ app.get("/", (req, res) => {
   app.use("/api", talkRoutes);
   const emailjs = require("./routes/email");
   app.use('/sendemail',emailjs);
+  const verifyEmail = require("./routes/verification");
+  app.use('/verify',verifyEmail);
 
   mongoose
-  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect('mongodb+srv://parth6106garg_db_user:CxSu9EUAbKgS6sRG@cluster0.cehjjms.mongodb.net', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
